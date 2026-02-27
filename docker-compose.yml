@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: emovision-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 246625971
+      MYSQL_DATABASE: emotion_nutrition
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: emovision-redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: emovision-backend
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: emotion_nutrition
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 246625971
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PROVIDER_NEWAPI_BASE_URL: ${PROVIDER_NEWAPI_BASE_URL:-https://api.daydreaming.online}
+      PROVIDER_NEWAPI_API_KEY: ${PROVIDER_NEWAPI_API_KEY:-}
+      PROVIDER_SILICONFLOW_BASE_URL: ${PROVIDER_SILICONFLOW_BASE_URL:-https://api.siliconflow.cn}
+      PROVIDER_SILICONFLOW_API_KEY: ${PROVIDER_SILICONFLOW_API_KEY:-}
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: emovision-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
