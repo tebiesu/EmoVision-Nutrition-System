@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: emovision-backend
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DB:emotion_nutrition}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+provider:
+  newapi:
+    base-url: ${PROVIDER_NEWAPI_BASE_URL:https://api.daydreaming.online}
+    api-key: ${PROVIDER_NEWAPI_API_KEY:}
+  siliconflow:
+    base-url: ${PROVIDER_SILICONFLOW_BASE_URL:https://api.siliconflow.cn}
+    api-key: ${PROVIDER_SILICONFLOW_API_KEY:}
+  timeout-ms: ${PROVIDER_TIMEOUT_MS:8000}
+  retry:
+    max-attempts: ${PROVIDER_RETRY_MAX_ATTEMPTS:2}

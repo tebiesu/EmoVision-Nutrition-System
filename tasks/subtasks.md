@@ -5,9 +5,9 @@
 - [x] 新增本子任务清单
 
 ## 功能点 02：后端工程初始化
-- [ ] 新建可运行 Spring Boot 3.5.1 工程
-- [ ] 完成配置管理（MySQL/Redis/NewAPI）
-- [ ] 启动健康检查接口
+- [x] 新建可运行 Spring Boot 3.5.1 工程
+- [x] 完成配置管理（MySQL/Redis/NewAPI）
+- [x] 启动健康检查接口
 
 ## 功能点 03：数据库与迁移
 - [ ] 对接 `schema.sql` 与 `seed.sql`
