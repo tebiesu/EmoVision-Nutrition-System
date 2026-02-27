@@ -11,6 +11,12 @@ import java.util.List;
 
 @Component
 public class ProviderRouterFactory {
+    private final InMemoryStore store;
+
+    public ProviderRouterFactory(InMemoryStore store) {
+        this.store = store;
+    }
+
     public ProviderRouter emotionRouter() {
         EmotionProvider primary = new EmotionProvider() {
             @Override
@@ -39,6 +45,13 @@ public class ProviderRouterFactory {
             }
         };
 
-        return new ProviderRouter(primary, secondary, 2, List.of(300L, 800L), null, millis -> {});
+        return new ProviderRouter(
+                primary,
+                secondary,
+                2,
+                List.of(300L, 800L),
+                (provider, attempt, success, error) -> store.saveProviderLog(provider, attempt, success, error),
+                millis -> {}
+        );
     }
 }

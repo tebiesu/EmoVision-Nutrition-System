@@ -84,6 +84,10 @@ class CoreFlowE2ETest {
         mockMvc.perform(get("/api/v1/dashboard/overview").header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.mealCount").value(1));
+
+        mockMvc.perform(get("/api/v1/provider-logs").header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray());
     }
 
     private String loginAndGetToken() throws Exception {

@@ -59,11 +59,22 @@ public class InMemoryStore {
     ) {
     }
 
+    public record ProviderCallLog(
+            long id,
+            String provider,
+            int attempt,
+            boolean success,
+            String errorMessage,
+            Instant createdAt
+    ) {
+    }
+
     private final AtomicLong idGenerator = new AtomicLong(1);
     private final Map<Long, UserProfile> profiles = new ConcurrentHashMap<>();
     private final Map<Long, MealRecord> meals = new ConcurrentHashMap<>();
     private final Map<Long, EmotionRecord> emotions = new ConcurrentHashMap<>();
     private final Map<Long, RecommendationRecord> recommendations = new ConcurrentHashMap<>();
+    private final Map<Long, ProviderCallLog> providerLogs = new ConcurrentHashMap<>();
 
     public InMemoryStore() {
         profiles.put(1L, new UserProfile(1L, "demo", 24, "maintain", List.of(), Instant.now()));
@@ -115,5 +126,14 @@ public class InMemoryStore {
 
     public List<RecommendationRecord> listRecommendationsByUser(long userId) {
         return new ArrayList<>(recommendations.values().stream().filter(r -> r.userId() == userId).toList());
+    }
+
+    public void saveProviderLog(String provider, int attempt, boolean success, String errorMessage) {
+        long id = nextId();
+        providerLogs.put(id, new ProviderCallLog(id, provider, attempt, success, errorMessage, Instant.now()));
+    }
+
+    public List<ProviderCallLog> listProviderLogs() {
+        return new ArrayList<>(providerLogs.values());
     }
 }
