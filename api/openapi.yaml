@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: EmoVision Nutrition API
+  version: 1.0.0
+servers:
+  - url: /api/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        data:
+          type: object
+    LoginReq:
+      type: object
+      required: [username, password]
+      properties:
+        username: { type: string }
+        password: { type: string }
+    LoginResp:
+      type: object
+      properties:
+        token: { type: string }
+        expireAt: { type: string, format: date-time }
+paths:
+  /auth/login:
+    post:
+      summary: 用户登录
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginReq' }
+      responses:
+        '200':
+          description: ok
+  /profile:
+    get:
+      summary: 获取档案
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: ok }
+    put:
+      summary: 更新档案
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: ok }
+  /meals:
+    post:
+      summary: 上传餐食
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                mealType:
+                  type: string
+                eatenAt:
+                  type: string
+                  format: date-time
+                note:
+                  type: string
+      responses:
+        '200': { description: ok }
+    get:
+      summary: 餐食列表
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: size
+          schema: { type: integer }
+        - in: query
+          name: date
+          schema: { type: string, format: date }
+      responses:
+        '200': { description: ok }
+  /meals/{id}:
+    get:
+      summary: 餐食详情
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200': { description: ok }
+  /emotions/analyze:
+    post:
+      summary: 情感分析
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: ok }
+  /recommendations/generate:
+    post:
+      summary: 生成建议
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: ok }
+  /dashboard/overview:
+    get:
+      summary: 看板概览
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: ok }
+  /dashboard/trend:
+    get:
+      summary: 趋势数据
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: query
+          name: days
+          schema: { type: integer, default: 7 }
+      responses:
+        '200': { description: ok }

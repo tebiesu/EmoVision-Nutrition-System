@@ -1,0 +1,40 @@
+[
+  {
+    "ruleCode": "R001",
+    "priority": 100,
+    "enabled": true,
+    "condition": {
+      "emotion": "stress",
+      "sugar_intake_high": true
+    },
+    "action": {
+      "advice": ["减少精制糖摄入", "高蛋白零食替代甜食"],
+      "risk": ["情绪性进食风险"]
+    }
+  },
+  {
+    "ruleCode": "R002",
+    "priority": 90,
+    "enabled": true,
+    "condition": {
+      "goal": "lose_fat",
+      "dinner_carb_high": true
+    },
+    "action": {
+      "advice": ["晚餐碳水建议下调20%"],
+      "risk": ["晚餐碳水超标"]
+    }
+  },
+  {
+    "ruleCode": "R003",
+    "priority": 80,
+    "enabled": true,
+    "condition": {
+      "emotion": "tired"
+    },
+    "action": {
+      "advice": ["注意补水与电解质", "补充优质蛋白"],
+      "risk": ["疲劳状态影响饮食质量"]
+    }
+  }
+]
