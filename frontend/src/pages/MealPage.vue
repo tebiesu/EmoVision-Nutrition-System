@@ -1,10 +1,10 @@
 <template>
   <section>
-    <h2>餐食记录</h2>
-    <input v-model="mealType" placeholder="mealType" />
-    <input v-model.number="calories" type="number" placeholder="totalCalories" />
-    <button @click="createMeal">提交</button>
-    <ul>
+    <h2>Meal</h2>
+    <input data-testid="meal-type" v-model="mealType" placeholder="mealType" />
+    <input data-testid="meal-calories" v-model.number="calories" type="number" placeholder="totalCalories" />
+    <button data-testid="meal-submit" @click="createMeal">submit meal</button>
+    <ul data-testid="meal-list">
       <li v-for="m in meals" :key="m.id">#{{ m.id }} {{ m.mealType }} / {{ m.totalCalories }}</li>
     </ul>
   </section>
@@ -24,13 +24,14 @@ const loadMeals = async () => {
 };
 
 const createMeal = async () => {
-  await apiClient.post("/meals", {
+  const r = await apiClient.post("/meals", {
     mealType: mealType.value,
     totalCalories: calories.value,
     proteinG: 25,
     fatG: 10,
     carbG: 50
   });
+  localStorage.setItem("lastMealId", String(r.data.data.id));
   await loadMeals();
 };
 

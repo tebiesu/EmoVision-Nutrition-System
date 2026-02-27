@@ -1,9 +1,9 @@
 <template>
   <section class="card">
-    <h2>登录</h2>
-    <input v-model="username" placeholder="用户名" />
-    <input v-model="password" type="password" placeholder="密码" />
-    <button @click="onLogin">登录</button>
+    <h2>Login</h2>
+    <input data-testid="login-username" v-model="username" placeholder="username" />
+    <input data-testid="login-password" v-model="password" type="password" placeholder="password" />
+    <button data-testid="login-submit" @click="onLogin">login</button>
   </section>
 </template>
 

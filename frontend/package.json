@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "e2e": "powershell -ExecutionPolicy Bypass -File scripts/run-e2e.ps1"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -16,6 +17,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.1",
     "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^5.4.11",
     "vitest": "^2.1.8"

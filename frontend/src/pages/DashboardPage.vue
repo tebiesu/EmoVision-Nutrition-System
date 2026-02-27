@@ -1,10 +1,10 @@
 <template>
   <section>
-    <h2>看板</h2>
-    <p>餐食数：{{ overview.mealCount }}</p>
-    <p>情感数：{{ overview.emotionCount }}</p>
-    <p>总热量：{{ overview.totalCalories }}</p>
-    <ul>
+    <h2 data-testid="dashboard-title">Dashboard</h2>
+    <p data-testid="dashboard-meal-count">mealCount: {{ overview.mealCount }}</p>
+    <p>emotionCount: {{ overview.emotionCount }}</p>
+    <p>totalCalories: {{ overview.totalCalories }}</p>
+    <ul data-testid="dashboard-trend">
       <li v-for="item in trend" :key="item.date">{{ item.date }} / {{ item.calories }}</li>
     </ul>
   </section>

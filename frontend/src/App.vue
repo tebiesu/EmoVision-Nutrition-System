@@ -1,11 +1,11 @@
 <template>
   <div class="app-shell">
     <aside class="menu" v-if="auth.token">
-      <router-link to="/dashboard">看板</router-link>
-      <router-link to="/meal">餐食</router-link>
-      <router-link to="/emotion">情感</router-link>
-      <router-link to="/recommendation">建议</router-link>
-      <router-link to="/profile">档案</router-link>
+      <router-link data-testid="nav-dashboard" to="/dashboard">dashboard</router-link>
+      <router-link data-testid="nav-meal" to="/meal">meal</router-link>
+      <router-link data-testid="nav-emotion" to="/emotion">emotion</router-link>
+      <router-link data-testid="nav-recommendation" to="/recommendation">recommendation</router-link>
+      <router-link data-testid="nav-profile" to="/profile">profile</router-link>
     </aside>
     <main class="content">
       <router-view />

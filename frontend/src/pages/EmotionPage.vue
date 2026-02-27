@@ -1,9 +1,9 @@
 <template>
   <section>
-    <h2>情感分析</h2>
-    <input v-model="text" placeholder="输入文本" />
-    <button @click="analyze">分析</button>
-    <pre>{{ result }}</pre>
+    <h2>Emotion</h2>
+    <input data-testid="emotion-text" v-model="text" placeholder="input text" />
+    <button data-testid="emotion-submit" @click="analyze">analyze</button>
+    <pre data-testid="emotion-result">{{ result }}</pre>
   </section>
 </template>
 
@@ -11,11 +11,13 @@
 import { ref } from "vue";
 import { apiClient } from "../api/client";
 
-const text = ref("今天压力大 fallback");
+const text = ref("stress fallback");
 const result = ref({});
 
 const analyze = async () => {
-  const r = await apiClient.post("/emotions/analyze", { text: text.value, sceneTag: "workday" });
+  const mealId = Number(localStorage.getItem("lastMealId") || "0") || null;
+  const r = await apiClient.post("/emotions/analyze", { mealId, text: text.value, sceneTag: "workday" });
   result.value = r.data.data;
+  localStorage.setItem("lastEmotionId", String(r.data.data.emotionId));
 };
 </script>
