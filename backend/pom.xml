@@ -114,6 +114,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
+                <configuration>
+                    <destFile>D:/tmp/emovision-jacoco.exec</destFile>
+                    <dataFile>D:/tmp/emovision-jacoco.exec</dataFile>
+                    <outputDirectory>D:/tmp/emovision-jacoco-report</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
